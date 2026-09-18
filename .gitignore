@@ -19,10 +19,21 @@ dist/
 # --- credentials -------------------------------------------------------- #
 # These hold a password that can read every secret in scope. The .example
 # files next to them are the templates and ARE committed.
+# Exact names first, then anything config-shaped: a customer will name their
+# file something else, and that is the realistic way one gets committed.
 .env
+.env.*
+!.env.example
 enzoic-delinea.config.psd1
 enzoic-delinea.config.json
 enzoic-delinea.config.toml
+*.config.psd1
+*.config.toml
+*.config.json
+*config*.psd1
+!*.example.psd1
+!*.example.toml
+!*.example.json
 
 # --- scan output -------------------------------------------------------- #
 # Reports name every secret in the vault. They contain no passwords, but they
