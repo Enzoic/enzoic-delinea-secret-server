@@ -1,0 +1,33 @@
+# Working files kept out of the public repo. Nothing here ships.
+_local/
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+
+# Editors
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# --- credentials -------------------------------------------------------- #
+# These hold a password that can read every secret in scope. The .example
+# files next to them are the templates and ARE committed.
+.env
+enzoic-delinea.config.psd1
+enzoic-delinea.config.json
+enzoic-delinea.config.toml
+
+# --- scan output -------------------------------------------------------- #
+# Reports name every secret in the vault. They contain no passwords, but they
+# are still an inventory of your credentials.
+*.csv
+enzoic-scan-*.csv
+scan*.json
+reports/

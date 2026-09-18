@@ -1,0 +1,61 @@
+# Copy to enzoic-delinea.config.toml and fill in. The README has the detail.
+#
+#     cp enzoic-delinea.config.example.toml enzoic-delinea.config.toml
+#     chmod 600 enzoic-delinea.config.toml                    # Linux / macOS
+#     icacls .\enzoic-delinea.config.toml /inheritance:r `
+#         /grant:r "$env:USERDOMAIN\$env:USERNAME:F"          # Windows
+#
+# Gitignored, and it holds a password that can read every secret in scope -
+# do not paste it into a ticket or a chat window.
+#
+# Precedence: command-line argument > environment variable > this file.
+#
+# Key names are matched case- and separator-insensitively, so `base_url`,
+# `BaseUrl` and `base-url` are the same key. That is deliberate: the same key
+# names describe the PowerShell port's .psd1 file.
+
+# Must include the /SecretServer vdir or the token endpoint 404s, which looks
+# identical to "Enable Webservices is off".
+base_url = "https://secretserver.example.com/SecretServer"
+
+# An application account, not a human login: no UI, so no 2FA to break the
+# password grant, and no license consumed. Needs View on BOTH the folder and
+# its secrets - two separate grants on the Sharing tab.
+username = "svc_enzoic_api"
+password = ""
+
+# Better than plaintext, on Windows. Generate AS THE ACCOUNT THAT WILL RUN THE
+# SCAN:
+#     enzoic-delinea --protect-secret
+# For an unattended scheduled task, add --machine-scope.
+# password_encrypted = ""
+
+# Optional. DOMAIN\user in `username` works too.
+# domain = "example.com"
+
+# The RAW 32-hex key - not base64, not key:secret.
+# Blank lists the secrets without checking them.
+enzoic_api_key = ""
+# enzoic_api_key_encrypted = ""
+
+# A name or a full path; a list for several. Subfolders are always included.
+# A bare name matching two folders is an error, not a guess.
+# Blank, with all = false, lists the visible folders - the right first run.
+folder = []
+all = false
+
+# A new dated CSV per run, never overwritten. Reports hold no passwords.
+report_directory = "/var/log/enzoic-reports"
+retain_reports = 0        # keep the newest N; 0 keeps everything
+
+# Separate: one fixed path, overwritten each run, for a dashboard.
+# csv = "/var/log/enzoic-reports/latest.csv"
+
+reveal = false            # print passwords in the console table and in --json
+insecure = false          # skip TLS validation - a self-signed lab cert only
+
+# Pause between API calls. A sweep is one request per secret, and Secret Server
+# Cloud rate limits where on-prem does not. A 429 is already caught and retried
+# with backoff, so leave this at 0 and only raise it (try 100) if a large cloud
+# sweep still spends its retries. No effect on-prem.
+throttle_delay_ms = 0

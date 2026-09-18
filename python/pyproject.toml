@@ -1,0 +1,20 @@
+[project]
+name = "enzoic-delinea"
+version = "1.0.0"
+description = "Sweep Delinea Secret Server and check every password against Enzoic's compromised-credentials database. Read-only."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"          # tomllib, for the config file
+dependencies = [
+    "requests>=2.31",
+]
+
+[project.urls]
+Homepage = "https://github.com/Enzoic/enzoic-delinea"
+
+[project.scripts]
+enzoic-delinea = "enzoic_delinea:main"
+
+[build-system]
+requires = ["uv_build>=0.12.6,<0.13.0"]
+build-backend = "uv_build"
