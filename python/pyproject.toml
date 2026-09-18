@@ -10,7 +10,8 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/Enzoic/enzoic-delinea"
+Homepage = "https://github.com/Enzoic/enzoic-delinea-secret-server"
+Repository = "https://github.com/Enzoic/enzoic-delinea-secret-server"
 
 [project.scripts]
 enzoic-delinea = "enzoic_delinea:main"
